@@ -62,11 +62,11 @@ export class HierarchyBuilder {
     const { innerText }: WithInnerText = this.#currentNode;
 
     if (this.#currentElement instanceof Text) {
-      this.#currentElement.data = innerText;
+      this.#currentElement.nodeValue = innerText;
       return;
     }
 
-    this.#currentElement.innerText = innerText;
+    this.#currentElement.innerHTML = innerText;
   }
 
   #unwrapChildren(): void {

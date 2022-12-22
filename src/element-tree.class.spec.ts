@@ -58,7 +58,7 @@ describe("element-tree.class.ts", () => {
       expect(resultDomEntry.innerHTML).toMatch(initalPhrase);
     });
 
-    it("should handle root nodes with nested children", () => {
+    it.only("should handle root nodes with nested children", () => {
       const rootNode: Node.WithChildren = {
         tagName: "html",
         children: [
@@ -104,7 +104,7 @@ describe("element-tree.class.ts", () => {
       const resultDomEntry: HTMLElement | Text =
         ElementTree.getElement(rootNode);
       expect(resultDomEntry.innerHTML).toMatch(
-        "<html><head><title>HTML Sample</title></head><body><main><ul><li>First</li><li>Second</li><li>Third</li></ul></main></body></html>"
+        "<head><title>HTML Sample</title></head><body><main><ul><li>First</li><li>Second</li><li>Third</li></ul></main></body>"
       );
     });
 
