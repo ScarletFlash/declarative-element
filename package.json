@@ -19,12 +19,18 @@
   },
   "scripts": {
     "compiler:run": "tsc --project tsconfig.json",
-    "compiler:check": "tsc --project tsconfig.json --noEmit"
+    "compiler:check": "tsc --project tsconfig.json --noEmit",
+    "test": "jest --clearCache && jest --config=jest.config.ts --coverage"
   },
   "devDependencies": {
+    "@types/jest": "latest",
     "esbuild": "latest",
     "eslint": "latest",
+    "jest": "latest",
+    "jest-environment-jsdom": "latest",
     "prettier": "latest",
+    "ts-jest": "latest",
+    "ts-node": "latest",
     "typescript": "latest"
   }
 }

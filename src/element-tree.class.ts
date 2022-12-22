@@ -4,10 +4,10 @@ import { isWithInnerText } from "./type-guards/is-with-inner-text.type-guard";
 import { isWithTag } from "./type-guards/is-with-tag.type-guard";
 
 export class ElementTree {
-  public static getElement(node: Node.Text): Text;
   public static getElement(
     node: Node.TextWithTag | Node.WithTag | Node.WithChildren
   ): HTMLElement;
+  public static getElement(node: Node.Text): Text;
   public static getElement(node: Node.Any): HTMLElement | Text {
     if (isWithInnerText(node)) {
       return ElementTree.#getTextNode(node);
@@ -20,7 +20,7 @@ export class ElementTree {
     const innerText: string = node.innerText;
 
     if (isWithTag(node)) {
-      const element: HTMLElement = document.createElement(node.tag);
+      const element: HTMLElement = document.createElement(node.tagName);
       element.innerText = innerText;
       return element;
     }

@@ -1,5 +1,16 @@
-export function isObject<T extends unknown = unknown>(
-  input: T
-): input is T & {} {
-  return typeof input === "object" && input === null;
+export function isObject(input: unknown): input is Record<string, unknown> {
+  if (input === null) {
+    return false;
+  }
+
+  switch (typeof input) {
+    case "function":
+    case "object": {
+      return true;
+    }
+
+    default: {
+      return false;
+    }
+  }
 }
