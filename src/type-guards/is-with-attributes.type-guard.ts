@@ -1,9 +1,9 @@
 import type { WithAttributes } from "../declarations/traits/with-attributes.trait";
 import { isObject } from "./is-object.type-guard";
 
-export function isWithAttributes(
-  input: unknown
-): input is Required<WithAttributes> {
+export function isWithAttributes<T extends object = object>(
+  input: T
+): input is Required<WithAttributes<T>> {
   if (!isObject(input)) {
     return false;
   }

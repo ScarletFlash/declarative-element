@@ -1,9 +1,9 @@
 import type { WithInnerText } from "../declarations/traits/with-inner-text.trait";
 import { isObject } from "./is-object.type-guard";
 
-export function isWithInnerText(
-  input: unknown
-): input is Required<WithInnerText> {
+export function isWithInnerText<T extends object = object>(
+  input: T
+): input is Required<WithInnerText<T>> {
   if (!isObject(input)) {
     return false;
   }

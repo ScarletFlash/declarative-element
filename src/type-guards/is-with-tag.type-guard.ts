@@ -1,7 +1,9 @@
 import type { WithTag } from "../declarations/traits/with-tag.trait";
 import { isObject } from "./is-object.type-guard";
 
-export function isWithTag(input: unknown): input is Required<WithTag> {
+export function isWithTag<T extends object = object>(
+  input: T
+): input is Required<WithTag<T>> {
   if (!isObject(input)) {
     return false;
   }
