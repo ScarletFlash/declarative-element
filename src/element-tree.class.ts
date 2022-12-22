@@ -1,5 +1,8 @@
 import type { Node } from "./declarations/node.interface";
 import type { WithInnerText } from "./declarations/traits/with-inner-text.trait";
+import { HierarchyBuilder } from "./hierarchy-builder.class";
+import { isWithAttributes } from "./type-guards/is-with-attributes.type-guard";
+import { isWithChildren } from "./type-guards/is-with-children.type-guard";
 import { isWithInnerText } from "./type-guards/is-with-inner-text.type-guard";
 import { isWithTag } from "./type-guards/is-with-tag.type-guard";
 
@@ -11,6 +14,14 @@ export class ElementTree {
   public static getElement(node: Node.Any): HTMLElement | Text {
     if (isWithInnerText(node)) {
       return ElementTree.#getTextNode(node);
+    }
+
+    if (isWithChildren(node)) {
+      return ElementTree.#getTaggedNodeWithChildren(node);
+    }
+
+    if (isWithTag(node)) {
+      return ElementTree.#getTaggedNodeWithoutChildren(node);
     }
 
     throw new Error("Unsupported root node type");
@@ -26,5 +37,34 @@ export class ElementTree {
     }
 
     return document.createTextNode(innerText);
+  }
+
+  static #getTaggedNodeWithoutChildren(node: Node.WithChildren): never;
+  static #getTaggedNodeWithoutChildren(node: Node.WithTag): HTMLElement;
+  static #getTaggedNodeWithoutChildren(node: Node.WithTag): HTMLElement {
+    const element: HTMLElement = document.createElement(node.tagName);
+    ElementTree.#applyAttributesIfPresent(node, element);
+    return element;
+  }
+
+  static #getTaggedNodeWithChildren(rootNode: Node.WithChildren): HTMLElement {
+    const builder: HierarchyBuilder = new HierarchyBuilder(rootNode);
+    builder.generate();
+    return builder.result;
+  }
+
+  static #applyAttributesIfPresent(
+    node: Node.WithTag,
+    element: HTMLElement
+  ): void {
+    if (!isWithAttributes(node)) {
+      return;
+    }
+
+    Object.entries(node.attributes).forEach(
+      ([key, value]: [string, string]) => {
+        element.setAttribute(key, value);
+      }
+    );
   }
 }
