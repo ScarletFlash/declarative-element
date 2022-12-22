@@ -1,0 +1,29 @@
+{
+  "name": "element-tree",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Lightweight, simple and reliable boilerplate wrapper for DOM-elements creation",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScarletFlash/element-tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ScarletFlash/element-tree/issues"
+  },
+  "homepage": "https://github.com/ScarletFlash/element-tree#readme",
+  "author": {
+    "email": "scarletflash.dev@gmail.com",
+    "name": "Fedor Usakov",
+    "url": "https://scarletflash.github.io/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "esbuild": "latest",
+    "eslint": "latest",
+    "prettier": "latest",
+    "typescript": "latest"
+  }
+}
