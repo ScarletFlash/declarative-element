@@ -18,7 +18,8 @@
     "url": "https://scarletflash.github.io/"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compiler:run": "tsc --project tsconfig.json",
+    "compiler:check": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {
     "esbuild": "latest",
