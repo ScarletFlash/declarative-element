@@ -1,35 +1,43 @@
 import type { Node } from './declarations/node.interface';
-import type { WithAttributesTrait } from './declarations/traits/with-attributes.trait';
-import type { WithInnerTextTrait } from './declarations/traits/with-inner-text.trait';
 import type { WithParentTrait } from './declarations/traits/with-parent.trait';
-import { isWithAttributes } from './type-guards/is-with-attributes.type-guard';
 import { isWithChildren } from './type-guards/is-with-children.type-guard';
 import { isWithInnerText } from './type-guards/is-with-inner-text.type-guard';
 import { isWithTag } from './type-guards/is-with-tag.type-guard';
+import { applyAttributesIfPresent } from './utilities/apply-attributes-if-present';
+import { insertTextIfPresent } from './utilities/insert-text-if-present';
 
 export class HierarchyBuilder {
-  readonly #rootElement: HTMLElement;
+  private readonly rootElement: HTMLElement;
 
-  #currentNode: WithParentTrait<Node.Any>;
-  #currentElement: HTMLElement | Text;
+  private currentNode: WithParentTrait<Node.Any>;
+  private currentElement: HTMLElement | Text;
 
-  readonly #unprocessedNodes: WithParentTrait<Node.Any>[] = [];
+  private readonly unprocessedNodes: WithParentTrait<Node.Any>[];
 
   constructor(rootNode: Node.WithChildren) {
-    this.#rootElement = document.createElement(rootNode.tagName);
-    this.#currentNode = HierarchyBuilder.#getNodeWithParent(rootNode, null);
-    this.#currentElement = this.#rootElement;
+    this.rootElement = document.createElement(rootNode.tagName);
+    this.currentNode = HierarchyBuilder.getNodeWithParent(rootNode, null);
+    this.currentElement = this.rootElement;
+    this.unprocessedNodes = [this.currentNode];
   }
 
   public get result(): HTMLElement {
-    return this.#rootElement;
+    return this.rootElement;
   }
 
   private get nextNode(): WithParentTrait<Node.Any> | undefined {
-    return this.#unprocessedNodes[0];
+    return this.unprocessedNodes[0];
   }
 
-  static #getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithParentTrait<Node.Any> {
+  private get currentElementChildrenWithParentRef(): WithParentTrait<Node.Any>[] {
+    if (this.currentElement instanceof HTMLElement) {
+      return HierarchyBuilder.getChildrenWithParent(this.currentNode, this.currentElement);
+    }
+
+    return [];
+  }
+
+  private static getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithParentTrait<Node.Any> {
     const parentKey: keyof WithParentTrait = 'parent';
     const propertyDescriptor: PropertyDescriptor = {
       value: parent,
@@ -42,7 +50,7 @@ export class HierarchyBuilder {
     });
   }
 
-  static #getChildrenWithParent(
+  private static getChildrenWithParent(
     currentNode: WithParentTrait<Node.Any>,
     currentElement: HTMLElement
   ): WithParentTrait<Node.Any>[] {
@@ -51,79 +59,46 @@ export class HierarchyBuilder {
     }
 
     return currentNode.children.map(
-      (child: Node.Any): WithParentTrait<Node.Any> => HierarchyBuilder.#getNodeWithParent(child, currentElement)
+      (child: Node.Any): WithParentTrait<Node.Any> => HierarchyBuilder.getNodeWithParent(child, currentElement)
     );
   }
 
   public generate(): void {
     do {
-      this.#applyAttributes();
-      this.#insertTextContent();
-      this.#unwrapChildren();
-      this.#insertCurrentNodeIntoHierarchy();
-      this.#setNextIterationArguments();
-    } while (this.#unprocessedNodes.length !== 0);
+      applyAttributesIfPresent(this.currentElement, this.currentNode);
+      insertTextIfPresent(this.currentElement, this.currentNode);
+
+      this.unwrapChildren();
+      this.insertCurrentNodeIntoHierarchy();
+      this.setNextIterationArguments();
+    } while (this.unprocessedNodes.length !== 0);
   }
 
-  #applyAttributes(): void {
-    if (!isWithAttributes(this.#currentNode)) {
-      return;
-    }
-    const { attributes }: WithAttributesTrait = this.#currentNode;
-
-    if (!(this.#currentElement instanceof HTMLElement)) {
-      return;
-    }
-    const trustedCurrentElement: HTMLElement = this.#currentElement;
-
-    Object.entries(attributes).forEach(([key, value]: [string, string]) => {
-      trustedCurrentElement.setAttribute(key, value);
-    });
+  private unwrapChildren(): void {
+    this.unprocessedNodes.splice(0, 1, ...this.currentElementChildrenWithParentRef);
   }
 
-  #insertTextContent(): void {
-    if (!isWithInnerText(this.#currentNode)) {
+  private insertCurrentNodeIntoHierarchy(): void {
+    if (this.currentNode.parent === null) {
       return;
     }
-    const { innerText }: WithInnerTextTrait = this.#currentNode;
-
-    if (this.#currentElement instanceof Text) {
-      this.#currentElement.nodeValue = innerText;
-      return;
-    }
-
-    this.#currentElement.innerHTML = innerText;
+    this.currentNode.parent.appendChild(this.currentElement);
   }
 
-  #unwrapChildren(): void {
-    const childrenToUnwrapWithParentRef: WithParentTrait<Node.Any>[] =
-      this.#currentElement instanceof HTMLElement
-        ? HierarchyBuilder.#getChildrenWithParent(this.#currentNode, this.#currentElement)
-        : [];
-    this.#unprocessedNodes.splice(0, 1, ...childrenToUnwrapWithParentRef);
-  }
-
-  #insertCurrentNodeIntoHierarchy(): void {
-    if (this.#currentNode.parent === null) {
-      return;
-    }
-    this.#currentNode.parent.appendChild(this.#currentElement);
-  }
-
-  #setNextIterationArguments(): void {
+  private setNextIterationArguments(): void {
     if (this.nextNode === undefined) {
       return;
     }
     const nextNode: WithParentTrait<Node.Any> = this.nextNode;
-    this.#currentNode = nextNode;
+    this.currentNode = nextNode;
 
     if (isWithTag(nextNode)) {
-      this.#currentElement = document.createElement(nextNode.tagName);
+      this.currentElement = document.createElement(nextNode.tagName);
       return;
     }
 
     if (isWithInnerText(nextNode)) {
-      this.#currentElement = document.createTextNode(nextNode.innerText);
+      this.currentElement = document.createTextNode(nextNode.innerText);
     }
   }
 }

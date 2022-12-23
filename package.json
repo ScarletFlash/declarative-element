@@ -64,7 +64,7 @@
     "bundler:prod": "ts-node --project ./tsconfig.build.json --esm ./do-build.ts --production",
     "bundler:dev": "ts-node --project ./tsconfig.build.json --esm ./do-build.ts",
     "🧪": "Test runner",
-    "test:dev": "jest --clearCache && jest --config=jest.config.ts --coverage",
+    "test:dev": "jest --clearCache && jest --config=jest.config.ts --coverage --detectOpenHandles",
     "test:ci": "jest --config=jest.config.ts --coverage --ci",
     "🖼️": "Code style",
     "formatter:check": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --check ./**/*.{ts,js,html,scss,yaml,yml,json}",

@@ -21,7 +21,7 @@ describe('declarative-element.class.ts', () => {
 
       const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
       expect(resultDomEntry).toBeInstanceOf(HTMLElement);
-      expect(resultDomEntry.innerText).toBe(rootNode.innerText);
+      expect(resultDomEntry.innerHTML).toBe(rootNode.innerText);
       expect(resultDomEntry.tagName.toLowerCase()).toBe(rootNode.tagName.toLowerCase());
     });
 
@@ -48,7 +48,7 @@ describe('declarative-element.class.ts', () => {
       expect(resultDomEntry.innerHTML).toMatch(initialPhrase);
     });
 
-    it.only('should handle root nodes with nested children', () => {
+    it('should handle root nodes with nested children', () => {
       const rootNode: Node.WithChildren = {
         tagName: 'html',
         children: [

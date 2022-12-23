@@ -11,9 +11,14 @@ const jestConfig: JestConfigWithTsJest = {
       'ts-jest',
       {
         useESM: true,
+        compiler: 'typescript',
       },
     ],
   },
+  rootDir: './',
+  testRegex: '\\/src\\/.*\\.spec\\.ts$',
+  collectCoverageFrom: ['src/**/*.ts'],
+  collectCoverage: true,
 };
 
-export default jestConfig;
+module.exports = jestConfig;
