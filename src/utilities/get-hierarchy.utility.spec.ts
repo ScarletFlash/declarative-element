@@ -1,5 +1,5 @@
-import type { Node } from './declarations/node.interface';
-import { HierarchyBuilder } from './hierarchy-builder.class';
+import type { Node } from '../declarations/node.interface';
+import { getHierarchy } from './get-hierarchy.utility';
 
 describe('hierarchy-builder.class.ts', () => {
   it('should build HTMLElement for Node.WithChildren', () => {
@@ -8,11 +8,10 @@ describe('hierarchy-builder.class.ts', () => {
       children: [],
     };
 
-    const builder: HierarchyBuilder = new HierarchyBuilder(root);
-    builder.generate();
+    const result: HTMLElement = getHierarchy(root);
 
-    expect(builder.result).toBeInstanceOf(HTMLElement);
-    expect(builder.result.tagName.toLowerCase()).toBe(root.tagName.toLowerCase());
+    expect(result).toBeInstanceOf(HTMLElement);
+    expect(result.tagName.toLowerCase()).toBe(root.tagName.toLowerCase());
   });
 
   it('should build HTMLElement for Node.WithChildren', () => {
@@ -21,11 +20,10 @@ describe('hierarchy-builder.class.ts', () => {
       children: [],
     };
 
-    const builder: HierarchyBuilder = new HierarchyBuilder(root);
-    builder.generate();
+    const result: HTMLElement = getHierarchy(root);
 
-    expect(builder.result).toBeInstanceOf(HTMLElement);
-    expect(builder.result.tagName.toLowerCase()).toBe(root.tagName.toLowerCase());
+    expect(result).toBeInstanceOf(HTMLElement);
+    expect(result.tagName.toLowerCase()).toBe(root.tagName.toLowerCase());
   });
 
   it('should apply attributes to result', () => {
@@ -38,12 +36,11 @@ describe('hierarchy-builder.class.ts', () => {
       },
     };
 
-    const builder: HierarchyBuilder = new HierarchyBuilder(root);
-    builder.generate();
+    const result: HTMLElement = getHierarchy(root);
 
-    expect(builder.result).toBeInstanceOf(HTMLElement);
-    expect(builder.result.getAttribute('key1')).toBe('value1');
-    expect(builder.result.getAttribute('key2')).toBe('value2');
+    expect(result).toBeInstanceOf(HTMLElement);
+    expect(result.getAttribute('key1')).toBe('value1');
+    expect(result.getAttribute('key2')).toBe('value2');
   });
 
   it('should build flat HTMLElement if it has no children', () => {
@@ -52,10 +49,9 @@ describe('hierarchy-builder.class.ts', () => {
       children: [],
     };
 
-    const builder: HierarchyBuilder = new HierarchyBuilder(root);
-    builder.generate();
+    const result: HTMLElement = getHierarchy(root);
 
-    expect(builder.result).toHaveProperty('outerHTML', '<div></div>');
+    expect(result).toHaveProperty('outerHTML', '<div></div>');
   });
 
   it('should build HTMLElement with nested Elements if it has children', () => {
@@ -79,9 +75,8 @@ describe('hierarchy-builder.class.ts', () => {
       ],
     };
 
-    const builder: HierarchyBuilder = new HierarchyBuilder(root);
-    builder.generate();
+    const result: HTMLElement = getHierarchy(root);
 
-    expect(builder.result).toHaveProperty('outerHTML', '<div><span>ABC</span></div>');
+    expect(result).toHaveProperty('outerHTML', '<div><span>ABC</span></div>');
   });
 });

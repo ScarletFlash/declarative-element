@@ -1,5 +1,5 @@
-import type { Node } from './../declarations/node.interface';
-import { applyAttributesIfPresent } from './apply-attributes-if-present';
+import type { Node } from '../declarations/node.interface';
+import { applyAttributesIfPresent } from './apply-attributes-if-present.utility';
 
 describe('apply-attributes-if-present.ts', () => {
   it('should add attributes if they are defined', () => {

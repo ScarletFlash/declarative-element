@@ -1,2 +1,2 @@
-export { DeclarativeElement } from './declarative-element.class';
+export { getElement } from './get-element.function';
 export { Node } from './declarations/node.interface';

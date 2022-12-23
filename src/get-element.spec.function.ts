@@ -1,5 +1,5 @@
 import type { Node } from './declarations/node.interface';
-import { DeclarativeElement } from './declarative-element.class';
+import { getElement } from './get-element.function';
 
 describe('declarative-element.class.ts', () => {
   describe('DeclarativeElement.getElement', () => {
@@ -8,7 +8,7 @@ describe('declarative-element.class.ts', () => {
         innerText: 'node without any tag',
       };
 
-      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = getElement(rootNode);
       expect(resultDomEntry).toBeInstanceOf(Text);
       expect(resultDomEntry.data).toBe(rootNode.innerText);
     });
@@ -19,7 +19,7 @@ describe('declarative-element.class.ts', () => {
         tagName: 'p',
       };
 
-      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = getElement(rootNode);
       expect(resultDomEntry).toBeInstanceOf(HTMLElement);
       expect(resultDomEntry.innerHTML).toBe(rootNode.innerText);
       expect(resultDomEntry.tagName.toLowerCase()).toBe(rootNode.tagName.toLowerCase());
@@ -30,7 +30,7 @@ describe('declarative-element.class.ts', () => {
         tagName: 'div',
       };
 
-      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = getElement(rootNode);
       expect(resultDomEntry).toBeInstanceOf(HTMLElement);
       expect(resultDomEntry.innerHTML).toBe('');
       expect(resultDomEntry.tagName.toLowerCase()).toBe(rootNode.tagName.toLowerCase());
@@ -44,7 +44,7 @@ describe('declarative-element.class.ts', () => {
         children: initialPhrase.split('').map((innerText: string): Node.Text => ({ innerText })),
       };
 
-      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = getElement(rootNode);
       expect(resultDomEntry.innerHTML).toMatch(initialPhrase);
     });
 
@@ -91,14 +91,14 @@ describe('declarative-element.class.ts', () => {
         ],
       };
 
-      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = getElement(rootNode);
       expect(resultDomEntry.innerHTML).toMatch(
         '<head><title>HTML Sample</title></head><body><main><ul><li>First</li><li>Second</li><li>Third</li></ul></main></body>'
       );
     });
 
     it('should throw error if node type is unsupported', () => {
-      expect(() => DeclarativeElement.getElement(Object.create({}))).toThrowError();
+      expect(() => getElement(Object.create({}))).toThrowError();
     });
   });
 });

@@ -1,5 +1,5 @@
 import type { Node } from '../declarations/node.interface';
-import { insertTextIfPresent } from './insert-text-if-present';
+import { insertTextIfPresent } from './insert-text-if-present.utility';
 
 describe('insert-text-if-present.ts', () => {
   it('should leave element as is if no innerText defined', () => {
