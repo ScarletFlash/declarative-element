@@ -1,4 +1,4 @@
-export function isObject(input: unknown): input is Record<string, unknown> {
+export const isObject = (input: unknown): input is Record<string, unknown> => {
   if (input === null) {
     return false;
   }
@@ -13,4 +13,4 @@ export function isObject(input: unknown): input is Record<string, unknown> {
       return false;
     }
   }
-}
+};

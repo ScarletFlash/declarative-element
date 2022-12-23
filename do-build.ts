@@ -59,6 +59,8 @@ Promise.resolve()
       legalComments: 'none',
       splitting: true,
       outdir: Path.dist,
+      color: true,
+      keepNames: false,
     })
   )
   .then(() => cp(Path.License.source, Path.License.bundle))

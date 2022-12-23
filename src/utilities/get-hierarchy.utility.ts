@@ -11,7 +11,7 @@ let currentNode: WithParentTrait<Node.Any>;
 let currentElement: HTMLElement | Text;
 let unprocessedNodes: WithParentTrait<Node.Any>[];
 
-export function getHierarchy(rootNode: Node.WithChildren): HTMLElement {
+export const getHierarchy = (rootNode: Node.WithChildren): HTMLElement => {
   rootElement = document.createElement(rootNode.tagName);
   currentNode = getNodeWithParent(rootNode, null);
   currentElement = rootElement;
@@ -27,21 +27,19 @@ export function getHierarchy(rootNode: Node.WithChildren): HTMLElement {
   } while (unprocessedNodes.length !== 0);
 
   return rootElement;
-}
+};
 
-function getNextNode(): WithParentTrait<Node.Any> | undefined {
-  return unprocessedNodes[0];
-}
+const getNextNode = (): WithParentTrait<Node.Any> | undefined => unprocessedNodes[0];
 
-function getCurrentElementChildrenWithParentRef(): WithParentTrait<Node.Any>[] {
+const getCurrentElementChildrenWithParentRef = (): WithParentTrait<Node.Any>[] => {
   if (currentElement instanceof HTMLElement) {
     return getChildrenWithParent(currentNode, currentElement);
   }
 
   return [];
-}
+};
 
-function getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithParentTrait<Node.Any> {
+const getNodeWithParent = (node: Node.Any, parent: HTMLElement | null): WithParentTrait<Node.Any> => {
   const parentKey: keyof WithParentTrait = 'parent';
   const propertyDescriptor: PropertyDescriptor = {
     value: parent,
@@ -52,27 +50,27 @@ function getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithPare
   return Object.create(node, {
     [parentKey]: propertyDescriptor,
   });
-}
+};
 
-function getChildrenWithParent(node: WithParentTrait<Node.Any>, element: HTMLElement): WithParentTrait<Node.Any>[] {
+const getChildrenWithParent = (node: WithParentTrait<Node.Any>, element: HTMLElement): WithParentTrait<Node.Any>[] => {
   if (!isWithChildren(node)) {
     return [];
   }
   return node.children.map((child: Node.Any): WithParentTrait<Node.Any> => getNodeWithParent(child, element));
-}
+};
 
-function unwrapChildren(): void {
+const unwrapChildren = (): void => {
   unprocessedNodes.splice(0, 1, ...getCurrentElementChildrenWithParentRef());
-}
+};
 
-function insertCurrentNodeIntoHierarchy(): void {
+const insertCurrentNodeIntoHierarchy = (): void => {
   if (currentNode.parent === null) {
     return;
   }
   currentNode.parent.appendChild(currentElement);
-}
+};
 
-function setNextIterationArguments(): void {
+const setNextIterationArguments = (): void => {
   const nextNode: WithParentTrait<Node.Any> | undefined = getNextNode();
   if (nextNode === undefined) {
     return;
@@ -87,4 +85,4 @@ function setNextIterationArguments(): void {
   if (isWithInnerText(nextNode)) {
     currentElement = document.createTextNode(nextNode.innerText);
   }
-}
+};

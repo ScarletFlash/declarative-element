@@ -11,7 +11,7 @@ npm install declarative-element@latest
 ## Usage
 
 ```javascript
-import { DeclarativeElement } from 'declarative-element';
+import { getElement } from 'declarative-element';
 
 /** @type {import('declarative-element').Node.WithChildren} */
 const input = {
@@ -28,7 +28,7 @@ const input = {
   ],
 };
 
-const output = DeclarativeElement.getElement();
+const output = getElement(input);
 document.body.appendChild(output);
 ```
 

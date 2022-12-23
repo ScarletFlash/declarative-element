@@ -25,18 +25,16 @@ export function getElement(node: Node.Any): HTMLElement | Text {
   throw new Error('Unsupported root node type');
 }
 
-function getTextNode(node: WithInnerTextTrait<Node.Any>): HTMLElement | Text {
+const getTextNode = (node: WithInnerTextTrait<Node.Any>): HTMLElement | Text => {
   const element: HTMLElement | Text = isWithTag(node)
     ? document.createElement(node.tagName)
     : document.createTextNode('');
   insertTextIfPresent(element, node);
   return element;
-}
+};
 
-function getTaggedNodeWithoutChildren(node: Node.WithChildren): never;
-function getTaggedNodeWithoutChildren(node: Node.WithTag): HTMLElement;
-function getTaggedNodeWithoutChildren(node: Node.WithTag): HTMLElement {
+const getTaggedNodeWithoutChildren = (node: Node.WithTag): HTMLElement => {
   const element: HTMLElement = document.createElement(node.tagName);
   applyAttributesIfPresent(element, node);
   return element;
-}
+};
