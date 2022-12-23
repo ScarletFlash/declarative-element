@@ -7,7 +7,7 @@ Lightweight, simple and reliable boilerplate wrapper for DOM-elements creation
 ## Installation
 
 ```bash
-npm install declarative-element
+npm install declarative-element@latest
 ```
 
 ## Usage
@@ -21,21 +21,11 @@ const input = {
   children: [
     {
       tagName: 'header',
-      children: [
-        {
-          tagName: 'h1',
-          innerText: 'HTML Sample',
-        },
-      ],
+      children: [{ tagName: 'h1', innerText: 'HTML Sample' }],
     },
     {
       tagName: 'section',
-      children: [
-        {
-          tagName: 'p',
-          innerText: 'Hello, World!',
-        },
-      ],
+      children: [{ tagName: 'p', innerText: 'Hello, World!' }],
     },
   ],
 };
@@ -57,10 +47,7 @@ document.body.appendChild(output);
 <td>
 
 ```json
-    {
-      "tagName": "div",
-      "attributes": { "class": "square" }
-    }
+    { "tagName": "div", "attributes": { "class": "square" } }
 ```
 
 </td>
@@ -112,9 +99,7 @@ element.innerHTML = 'Hello, World!';
 ```json
     {
       "tagName": "a",
-      "children": [
-        { "tagName": "button", "innerText": "Subscribe" }
-      ]
+      "children": [{ "tagName": "button", "innerText": "Subscribe" }]
     }
 ```
 
@@ -150,9 +135,7 @@ anchorElement.appendChild(buttonElement);
       "children": [
         {
           "tagName": "head",
-          "children": [
-            { "tagName": "title", "innerText": "Sample" }
-          ]
+          "children": [{ "tagName": "title", "innerText": "Sample" }]
         },
         {
           "tagName": "body",
