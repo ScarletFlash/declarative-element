@@ -2,7 +2,7 @@ import type { Node } from '../declarations/node.interface';
 import { insertTextIfPresent } from './insert-text-if-present';
 
 describe('insert-text-if-present.ts', () => {
-  it('should leave element as is if no innerText difined', () => {
+  it('should leave element as is if no innerText defined', () => {
     const element: HTMLElement = document.createElement('p');
     const node: Node.WithTag = {
       tagName: 'p',
@@ -21,11 +21,11 @@ describe('insert-text-if-present.ts', () => {
       innerText: '456',
     };
 
-    const initailValue: string | null = element.nodeValue;
+    const initialValue: string | null = element.nodeValue;
     insertTextIfPresent(element, node);
     const resultValue: string | null = element.nodeValue;
 
-    expect(initailValue).toBe('123');
+    expect(initialValue).toBe('123');
     expect(resultValue).toBe('456');
   });
 
@@ -36,11 +36,11 @@ describe('insert-text-if-present.ts', () => {
       innerText: 'We are the champions',
     };
 
-    const initailValue: string = element.innerHTML;
+    const initialValue: string = element.innerHTML;
     insertTextIfPresent(element, node);
     const resultValue: string = element.innerHTML;
 
-    expect(initailValue).toBe('');
+    expect(initialValue).toBe('');
     expect(resultValue).toBe('We are the champions');
   });
 });
