@@ -1,7 +1,7 @@
-import type { WithAttributes } from "./traits/with-attributes.trait";
-import type { WithTagName } from "./traits/with-tag-name.trait";
-import type { WithChildren as WithChildrenTrait } from "./traits/with-children.trait";
-import type { WithInnerText } from "./traits/with-inner-text.trait";
+import type { WithAttributes } from './traits/with-attributes.trait';
+import type { WithTagName } from './traits/with-tag-name.trait';
+import type { WithChildren as WithChildrenTrait } from './traits/with-children.trait';
+import type { WithInnerText } from './traits/with-inner-text.trait';
 
 export namespace Node {
   export interface WithTag extends WithTagName, Partial<WithAttributes> {}

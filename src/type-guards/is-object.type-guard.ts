@@ -4,8 +4,8 @@ export function isObject(input: unknown): input is Record<string, unknown> {
   }
 
   switch (typeof input) {
-    case "function":
-    case "object": {
+    case 'function':
+    case 'object': {
       return true;
     }
 

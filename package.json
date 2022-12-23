@@ -20,7 +20,10 @@
   "scripts": {
     "compiler:run": "tsc --project tsconfig.json",
     "compiler:check": "tsc --project tsconfig.json --noEmit",
-    "test": "jest --clearCache && jest --config=jest.config.ts --coverage"
+    "test": "jest --clearCache && jest --config=jest.config.ts --coverage",
+    "formatter:lint": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --check ./**/*.{ts,js,html,scss,yaml,yml,json}",
+    "formatter:fix": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --write ./**/*.{ts,js,html,scss,yaml,yml,json}",
+    "autofix": "npm run formatter:fix"
   },
   "devDependencies": {
     "@types/jest": "latest",

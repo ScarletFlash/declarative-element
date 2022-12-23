@@ -1,11 +1,11 @@
-import type { Node } from "./declarations/node.interface";
-import type { WithAttributes } from "./declarations/traits/with-attributes.trait";
-import type { WithInnerText } from "./declarations/traits/with-inner-text.trait";
-import type { WithParent } from "./declarations/traits/with-parent.trait";
-import { isWithAttributes } from "./type-guards/is-with-attributes.type-guard";
-import { isWithChildren } from "./type-guards/is-with-children.type-guard";
-import { isWithInnerText } from "./type-guards/is-with-inner-text.type-guard";
-import { isWithTag } from "./type-guards/is-with-tag.type-guard";
+import type { Node } from './declarations/node.interface';
+import type { WithAttributes } from './declarations/traits/with-attributes.trait';
+import type { WithInnerText } from './declarations/traits/with-inner-text.trait';
+import type { WithParent } from './declarations/traits/with-parent.trait';
+import { isWithAttributes } from './type-guards/is-with-attributes.type-guard';
+import { isWithChildren } from './type-guards/is-with-children.type-guard';
+import { isWithInnerText } from './type-guards/is-with-inner-text.type-guard';
+import { isWithTag } from './type-guards/is-with-tag.type-guard';
 
 export class HierarchyBuilder {
   readonly #rootElement: HTMLElement;
@@ -72,10 +72,7 @@ export class HierarchyBuilder {
   #unwrapChildren(): void {
     const childrenToUnwrapWithParentRef: WithParent<Node.Any>[] =
       this.#currentElement instanceof HTMLElement
-        ? HierarchyBuilder.#getChildrenWithParent(
-            this.#currentNode,
-            this.#currentElement
-          )
+        ? HierarchyBuilder.#getChildrenWithParent(this.#currentNode, this.#currentElement)
         : [];
     this.#unprocessedNodes.splice(0, 1, ...childrenToUnwrapWithParentRef);
   }
@@ -104,11 +101,8 @@ export class HierarchyBuilder {
     }
   }
 
-  static #getNodeWithParent(
-    node: Node.Any,
-    parent: HTMLElement | null
-  ): WithParent<Node.Any> {
-    const parentKey: keyof WithParent = "parent";
+  static #getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithParent<Node.Any> {
+    const parentKey: keyof WithParent = 'parent';
     const propertyDescriptor: PropertyDescriptor = {
       value: parent,
       writable: false,
@@ -129,8 +123,7 @@ export class HierarchyBuilder {
     }
 
     return currentNode.children.map(
-      (child: Node.Any): WithParent<Node.Any> =>
-        HierarchyBuilder.#getNodeWithParent(child, currentElement)
+      (child: Node.Any): WithParent<Node.Any> => HierarchyBuilder.#getNodeWithParent(child, currentElement)
     );
   }
 }
