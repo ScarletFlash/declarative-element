@@ -37,15 +37,15 @@ describe('element-tree.class.ts', () => {
     });
 
     it('should handle root nodes with unnested children', () => {
-      const initalPhrase: string = 'Hello, World!';
+      const initialPhrase: string = 'Hello, World!';
 
       const rootNode: Node.WithChildren = {
         tagName: 'div',
-        children: initalPhrase.split('').map((innerText: string): Node.Text => ({ innerText })),
+        children: initialPhrase.split('').map((innerText: string): Node.Text => ({ innerText })),
       };
 
       const resultDomEntry: HTMLElement | Text = ElementTree.getElement(rootNode);
-      expect(resultDomEntry.innerHTML).toMatch(initalPhrase);
+      expect(resultDomEntry.innerHTML).toMatch(initialPhrase);
     });
 
     it.only('should handle root nodes with nested children', () => {

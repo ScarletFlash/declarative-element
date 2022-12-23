@@ -14,7 +14,7 @@ describe('is-object.type-guard.ts', () => {
   });
 
   it('should return false if called with primitive: string', () => {
-    expect(isObject('Lorem ipsum dolor sit amet')).toBeFalsy();
+    expect(isObject('To be, or not to be?')).toBeFalsy();
   });
 
   it('should return false if called with primitive: null', () => {

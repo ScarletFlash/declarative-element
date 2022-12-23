@@ -18,15 +18,21 @@
     "url": "https://scarletflash.github.io/"
   },
   "scripts": {
+    "🪄": "One-liners",
+    "autofix": "npm run formatter:fix",
+    "🔬": "Compiler",
     "compiler:run": "tsc --project tsconfig.json",
     "compiler:check": "tsc --project tsconfig.json --noEmit",
     "test": "jest --clearCache && jest --config=jest.config.ts --coverage",
-    "formatter:lint": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --check ./**/*.{ts,js,html,scss,yaml,yml,json}",
+    "🖼️": "Code style",
+    "formatter:check": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --check ./**/*.{ts,js,html,scss,yaml,yml,json}",
     "formatter:fix": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --write ./**/*.{ts,js,html,scss,yaml,yml,json}",
-    "autofix": "npm run formatter:fix"
+    "🎙️": "Spelling",
+    "spell:check": "cspell '**/*' --config cspell.config.yaml"
   },
   "devDependencies": {
     "@types/jest": "latest",
+    "cspell": "latest",
     "esbuild": "latest",
     "eslint": "latest",
     "jest": "latest",

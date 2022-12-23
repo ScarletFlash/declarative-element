@@ -1,0 +1,28 @@
+---
+$schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
+version: '0.2'
+language: en
+ignorePaths:
+  - node_modules
+  - dist
+  - coverage
+dictionaries:
+  - en_US
+  - en-gb
+  - companies
+  - softwareTerms
+  - misc
+  - typescript
+  - node
+  - html
+  - css
+  - bash
+  - fonts
+  - filetypes
+  - npm
+words:
+  - unnested
+  - ESBuild
+  - Fedor
+  - Usakov
+  - AutoFix
