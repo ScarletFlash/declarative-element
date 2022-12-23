@@ -11,6 +11,7 @@ namespace Path {
   export const dist: string = join(__dirname, 'dist');
   export const entryPoint: string = join(__dirname, 'src', 'index.ts');
   export const typings: string = join(dist, 'index.d.ts');
+  export const main: string = join(dist, 'index.js');
 
   export namespace TSConfig {
     export const library: string = join(__dirname, 'tsconfig.lib.json');
@@ -61,9 +62,24 @@ Promise.resolve()
     })
   )
   .then(() => cp(Path.License.source, Path.License.bundle))
-  .then(() => cp(Path.ReadMe.source, Path.ReadMe.bundle))
+  .then(() => generateReadMe())
   .then(() => generateTypings())
   .then(() => generatePackageJson());
+
+async function generateReadMe(): Promise<void> {
+  const bundleFileContent: string = await readFile(Path.main, { encoding: 'utf-8' });
+  const bundleFileSizeKB: number = Array.from(Buffer.from(bundleFileContent, 'utf-8')).length / 1024;
+
+  const originalContent: string = await readFile(Path.ReadMe.source, { encoding: 'utf-8' });
+
+  const resultContent: string = originalContent.replace(
+    'Lightweight, simple and reliable boilerplate wrapper',
+    `Lightweight (${bundleFileSizeKB.toFixed(1)}KB runtime), simple and reliable boilerplate wrapper`
+  );
+  return writeFile(Path.ReadMe.bundle, resultContent, {
+    encoding: 'utf-8',
+  });
+}
 
 async function generateTypings(): Promise<void> {
   const config: EntryPointConfig = {
