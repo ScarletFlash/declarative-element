@@ -1,14 +1,14 @@
 import type { Node } from './declarations/node.interface';
-import { ElementTree } from './element-tree.class';
+import { DeclarativeElement } from './declarative-element.class';
 
-describe('element-tree.class.ts', () => {
-  describe('ElementTree.getElement', () => {
+describe('declarative-element.class.ts', () => {
+  describe('DeclarativeElement.getElement', () => {
     it('should handle root text nodes without any tag', () => {
       const rootNode: Node.Text = {
         innerText: 'node without any tag',
       };
 
-      const resultDomEntry: HTMLElement | Text = ElementTree.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
       expect(resultDomEntry).toBeInstanceOf(Text);
       expect(resultDomEntry.data).toBe(rootNode.innerText);
     });
@@ -19,7 +19,7 @@ describe('element-tree.class.ts', () => {
         tagName: 'p',
       };
 
-      const resultDomEntry: HTMLElement | Text = ElementTree.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
       expect(resultDomEntry).toBeInstanceOf(HTMLElement);
       expect(resultDomEntry.innerText).toBe(rootNode.innerText);
       expect(resultDomEntry.tagName.toLowerCase()).toBe(rootNode.tagName.toLowerCase());
@@ -30,7 +30,7 @@ describe('element-tree.class.ts', () => {
         tagName: 'div',
       };
 
-      const resultDomEntry: HTMLElement | Text = ElementTree.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
       expect(resultDomEntry).toBeInstanceOf(HTMLElement);
       expect(resultDomEntry.innerHTML).toBe('');
       expect(resultDomEntry.tagName.toLowerCase()).toBe(rootNode.tagName.toLowerCase());
@@ -44,7 +44,7 @@ describe('element-tree.class.ts', () => {
         children: initialPhrase.split('').map((innerText: string): Node.Text => ({ innerText })),
       };
 
-      const resultDomEntry: HTMLElement | Text = ElementTree.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
       expect(resultDomEntry.innerHTML).toMatch(initialPhrase);
     });
 
@@ -91,14 +91,14 @@ describe('element-tree.class.ts', () => {
         ],
       };
 
-      const resultDomEntry: HTMLElement | Text = ElementTree.getElement(rootNode);
+      const resultDomEntry: HTMLElement | Text = DeclarativeElement.getElement(rootNode);
       expect(resultDomEntry.innerHTML).toMatch(
         '<head><title>HTML Sample</title></head><body><main><ul><li>First</li><li>Second</li><li>Third</li></ul></main></body>'
       );
     });
 
     it('should throw error if node type is unsupported', () => {
-      expect(() => ElementTree.getElement(Object.create({}))).toThrowError();
+      expect(() => DeclarativeElement.getElement(Object.create({}))).toThrowError();
     });
   });
 });

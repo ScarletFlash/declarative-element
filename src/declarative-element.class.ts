@@ -6,20 +6,20 @@ import { isWithChildren } from './type-guards/is-with-children.type-guard';
 import { isWithInnerText } from './type-guards/is-with-inner-text.type-guard';
 import { isWithTag } from './type-guards/is-with-tag.type-guard';
 
-export class ElementTree {
+export class DeclarativeElement {
   public static getElement(node: Node.TextWithTag | Node.WithTag | Node.WithChildren): HTMLElement;
   public static getElement(node: Node.Text): Text;
   public static getElement(node: Node.Any): HTMLElement | Text {
     if (isWithInnerText(node)) {
-      return ElementTree.#getTextNode(node);
+      return DeclarativeElement.#getTextNode(node);
     }
 
     if (isWithChildren(node)) {
-      return ElementTree.#getTaggedNodeWithChildren(node);
+      return DeclarativeElement.#getTaggedNodeWithChildren(node);
     }
 
     if (isWithTag(node)) {
-      return ElementTree.#getTaggedNodeWithoutChildren(node);
+      return DeclarativeElement.#getTaggedNodeWithoutChildren(node);
     }
 
     throw new Error('Unsupported root node type');
@@ -41,7 +41,7 @@ export class ElementTree {
   static #getTaggedNodeWithoutChildren(node: Node.WithTag): HTMLElement;
   static #getTaggedNodeWithoutChildren(node: Node.WithTag): HTMLElement {
     const element: HTMLElement = document.createElement(node.tagName);
-    ElementTree.#applyAttributesIfPresent(node, element);
+    DeclarativeElement.#applyAttributesIfPresent(node, element);
     return element;
   }
 

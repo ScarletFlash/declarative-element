@@ -7,15 +7,15 @@ Lightweight, simple and reliable boilerplate wrapper for DOM-elements creation
 ## Installation
 
 ```bash
-npm install element-tree
+npm install declarative-element
 ```
 
 ## Usage
 
 ```javascript
-import { ElementTree } from 'element-tree';
+import { DeclarativeElement } from 'declarative-element';
 
-/** @type {import('element-tree').Node.WithChildren} */
+/** @type {import('declarative-element').Node.WithChildren} */
 const input = {
   tagName: 'main',
   children: [
@@ -40,6 +40,6 @@ const input = {
   ],
 };
 
-const output = ElementTree.getElement();
+const output = DeclarativeElement.getElement();
 document.body.appendChild(output);
 ```

@@ -1,17 +1,17 @@
 {
-  "name": "element-tree",
+  "name": "declarative-element",
   "version": "#.#.#",
   "license": "MIT",
   "description": "Lightweight, simple and reliable boilerplate wrapper for DOM-elements creation",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ScarletFlash/element-tree.git"
+    "url": "git+https://github.com/ScarletFlash/declarative-element.git"
   },
   "bugs": {
-    "url": "https://github.com/ScarletFlash/element-tree/issues"
+    "url": "https://github.com/ScarletFlash/declarative-element/issues"
   },
-  "homepage": "https://github.com/ScarletFlash/element-tree#readme",
+  "homepage": "https://github.com/ScarletFlash/declarative-element#readme",
   "author": {
     "email": "scarletflash.dev@gmail.com",
     "name": "Fedor Usakov",
