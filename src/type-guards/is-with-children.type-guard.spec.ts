@@ -16,7 +16,7 @@ describe('is-with-children.type-guard.ts', () => {
 
   it('should return false if called with object incompatible with { children: Node.Any[] }', () => {
     const incompatibleObject: Record<keyof WithChildren, VoidFunction> = {
-      children: () => {},
+      children: () => void 0,
     };
 
     expect(isWithChildren(incompatibleObject)).toBeFalsy();

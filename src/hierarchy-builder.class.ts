@@ -29,6 +29,32 @@ export class HierarchyBuilder {
     return this.#unprocessedNodes[0];
   }
 
+  static #getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithParent<Node.Any> {
+    const parentKey: keyof WithParent = 'parent';
+    const propertyDescriptor: PropertyDescriptor = {
+      value: parent,
+      writable: false,
+      enumerable: true,
+      configurable: false,
+    };
+    return Object.create(node, {
+      [parentKey]: propertyDescriptor,
+    });
+  }
+
+  static #getChildrenWithParent(
+    currentNode: WithParent<Node.Any>,
+    currentElement: HTMLElement
+  ): WithParent<Node.Any>[] {
+    if (!isWithChildren(currentNode)) {
+      return [];
+    }
+
+    return currentNode.children.map(
+      (child: Node.Any): WithParent<Node.Any> => HierarchyBuilder.#getNodeWithParent(child, currentElement)
+    );
+  }
+
   public generate(): void {
     do {
       this.#applyAttributes();
@@ -99,31 +125,5 @@ export class HierarchyBuilder {
     if (isWithInnerText(nextNode)) {
       this.#currentElement = document.createTextNode(nextNode.innerText);
     }
-  }
-
-  static #getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithParent<Node.Any> {
-    const parentKey: keyof WithParent = 'parent';
-    const propertyDescriptor: PropertyDescriptor = {
-      value: parent,
-      writable: false,
-      enumerable: true,
-      configurable: false,
-    };
-    return Object.create(node, {
-      [parentKey]: propertyDescriptor,
-    });
-  }
-
-  static #getChildrenWithParent(
-    currentNode: WithParent<Node.Any>,
-    currentElement: HTMLElement
-  ): WithParent<Node.Any>[] {
-    if (!isWithChildren(currentNode)) {
-      return [];
-    }
-
-    return currentNode.children.map(
-      (child: Node.Any): WithParent<Node.Any> => HierarchyBuilder.#getNodeWithParent(child, currentElement)
-    );
   }
 }

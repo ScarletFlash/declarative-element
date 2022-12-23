@@ -31,7 +31,7 @@ describe('is-object.type-guard.ts', () => {
 
   it('should return true if called with object', () => {
     expect(isObject({})).toBeTruthy();
-    expect(isObject(() => {})).toBeTruthy();
+    expect(isObject(() => void 0)).toBeTruthy();
     expect(isObject([])).toBeTruthy();
   });
 });
