@@ -4,6 +4,21 @@
   "license": "MIT",
   "description": "Lightweight, simple and reliable boilerplate wrapper for DOM-elements creation",
   "private": true,
+  "keywords": [
+    "DOM",
+    "XML",
+    "object",
+    "HTMLElement",
+    "lowcode",
+    "object2html",
+    "object2dom",
+    "object2xml",
+    "objectToHtml",
+    "objectToDom",
+    "objectToXml",
+    "simple",
+    "Lightweight"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ScarletFlash/declarative-element.git"

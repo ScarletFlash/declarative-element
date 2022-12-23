@@ -31,6 +31,7 @@ export class DeclarativeElement {
     if (isWithTag(node)) {
       const element: HTMLElement = document.createElement(node.tagName);
       element.innerText = innerText;
+
       return element;
     }
 
