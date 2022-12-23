@@ -2,6 +2,12 @@
 
 Lightweight, simple and reliable boilerplate wrapper for DOM-elements creation
 
+- TypeScript API — nothing is written in pure JS
+- Optimized for smaller bundle size — manually + minified by ESBuild
+- Covered by tests
+- SemVer versioning
+- ~~Online demo and query constructor~~ TBA
+
 ## Installation
 
 ```bash
