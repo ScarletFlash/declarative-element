@@ -100,6 +100,7 @@ async function generatePackageJson(): Promise<void> {
     'homepage',
     'author',
     'dependencies',
+    'keywords',
   ]);
   const filteredEntires: [string, unknown][] = Object.entries(originalContent).filter(
     ([key, _value]: [string, unknown]) => keysToByPass.has(key)

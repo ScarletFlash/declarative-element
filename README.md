@@ -42,10 +42,9 @@ const input = {
 
 const output = DeclarativeElement.getElement();
 document.body.appendChild(output);
+```
 
 ## Samples
-
-```
 
 <table>
 <tr>
