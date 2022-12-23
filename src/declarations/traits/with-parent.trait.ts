@@ -1,1 +1,1 @@
-export type WithParent<T = unknown> = T & { parent: Element };
+export type WithParentTrait<T = unknown> = T & { parent: Element };

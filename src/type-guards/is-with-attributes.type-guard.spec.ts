@@ -1,4 +1,4 @@
-import type { WithAttributes } from './../declarations/traits/with-attributes.trait';
+import type { WithAttributesTrait } from './../declarations/traits/with-attributes.trait';
 import { isWithAttributes } from './is-with-attributes.type-guard';
 
 describe('is-with-attributes.type-guard.ts', () => {
@@ -7,7 +7,7 @@ describe('is-with-attributes.type-guard.ts', () => {
   });
 
   it('should return true if called with object compatible with { attributes: Record<string, string> }', () => {
-    const compatibleObject: WithAttributes = {
+    const compatibleObject: WithAttributesTrait = {
       attributes: { case: 'compatible' },
     };
 
@@ -15,7 +15,7 @@ describe('is-with-attributes.type-guard.ts', () => {
   });
 
   it('should return false if called with object incompatible with { attributes: Record<string, string> }', () => {
-    const incompatibleObject: Record<keyof WithAttributes, string> = {
+    const incompatibleObject: Record<keyof WithAttributesTrait, string> = {
       attributes: 'incompatible',
     };
 

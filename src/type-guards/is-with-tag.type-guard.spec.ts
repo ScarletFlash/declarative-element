@@ -1,4 +1,4 @@
-import type { WithTagName } from './../declarations/traits/with-tag-name.trait';
+import type { WithTagNameTrait } from './../declarations/traits/with-tag-name.trait';
 import { isWithTag } from './is-with-tag.type-guard';
 
 describe('is-with-tag.type-guard.ts', () => {
@@ -7,7 +7,7 @@ describe('is-with-tag.type-guard.ts', () => {
   });
 
   it('should return true if called with object compatible with { tagName: string }', () => {
-    const compatibleObject: WithTagName = {
+    const compatibleObject: WithTagNameTrait = {
       tagName: 'some-tag',
     };
 
@@ -15,7 +15,7 @@ describe('is-with-tag.type-guard.ts', () => {
   });
 
   it('should return false if called with object incompatible with { tagName: string }', () => {
-    const incompatibleObject: Record<keyof WithTagName, string[]> = {
+    const incompatibleObject: Record<keyof WithTagNameTrait, string[]> = {
       tagName: ['incompatible'],
     };
 

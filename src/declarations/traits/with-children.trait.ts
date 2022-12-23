@@ -1,3 +1,3 @@
 import type { Node } from '../node.interface';
 
-export type WithChildren<T = unknown> = T & { children: Node.Any[] };
+export type WithChildrenTrait<T = unknown> = T & { children: Node.Any[] };

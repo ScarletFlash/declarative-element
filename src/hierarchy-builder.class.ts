@@ -1,7 +1,7 @@
 import type { Node } from './declarations/node.interface';
-import type { WithAttributes } from './declarations/traits/with-attributes.trait';
-import type { WithInnerText } from './declarations/traits/with-inner-text.trait';
-import type { WithParent } from './declarations/traits/with-parent.trait';
+import type { WithAttributesTrait } from './declarations/traits/with-attributes.trait';
+import type { WithInnerTextTrait } from './declarations/traits/with-inner-text.trait';
+import type { WithParentTrait } from './declarations/traits/with-parent.trait';
 import { isWithAttributes } from './type-guards/is-with-attributes.type-guard';
 import { isWithChildren } from './type-guards/is-with-children.type-guard';
 import { isWithInnerText } from './type-guards/is-with-inner-text.type-guard';
@@ -10,10 +10,10 @@ import { isWithTag } from './type-guards/is-with-tag.type-guard';
 export class HierarchyBuilder {
   readonly #rootElement: HTMLElement;
 
-  #currentNode: WithParent<Node.Any>;
+  #currentNode: WithParentTrait<Node.Any>;
   #currentElement: HTMLElement | Text;
 
-  readonly #unprocessedNodes: WithParent<Node.Any>[] = [];
+  readonly #unprocessedNodes: WithParentTrait<Node.Any>[] = [];
 
   constructor(rootNode: Node.WithChildren) {
     this.#rootElement = document.createElement(rootNode.tagName);
@@ -25,12 +25,12 @@ export class HierarchyBuilder {
     return this.#rootElement;
   }
 
-  private get nextNode(): WithParent<Node.Any> | undefined {
+  private get nextNode(): WithParentTrait<Node.Any> | undefined {
     return this.#unprocessedNodes[0];
   }
 
-  static #getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithParent<Node.Any> {
-    const parentKey: keyof WithParent = 'parent';
+  static #getNodeWithParent(node: Node.Any, parent: HTMLElement | null): WithParentTrait<Node.Any> {
+    const parentKey: keyof WithParentTrait = 'parent';
     const propertyDescriptor: PropertyDescriptor = {
       value: parent,
       writable: false,
@@ -43,15 +43,15 @@ export class HierarchyBuilder {
   }
 
   static #getChildrenWithParent(
-    currentNode: WithParent<Node.Any>,
+    currentNode: WithParentTrait<Node.Any>,
     currentElement: HTMLElement
-  ): WithParent<Node.Any>[] {
+  ): WithParentTrait<Node.Any>[] {
     if (!isWithChildren(currentNode)) {
       return [];
     }
 
     return currentNode.children.map(
-      (child: Node.Any): WithParent<Node.Any> => HierarchyBuilder.#getNodeWithParent(child, currentElement)
+      (child: Node.Any): WithParentTrait<Node.Any> => HierarchyBuilder.#getNodeWithParent(child, currentElement)
     );
   }
 
@@ -69,7 +69,7 @@ export class HierarchyBuilder {
     if (!isWithAttributes(this.#currentNode)) {
       return;
     }
-    const { attributes }: WithAttributes = this.#currentNode;
+    const { attributes }: WithAttributesTrait = this.#currentNode;
 
     if (!(this.#currentElement instanceof HTMLElement)) {
       return;
@@ -85,7 +85,7 @@ export class HierarchyBuilder {
     if (!isWithInnerText(this.#currentNode)) {
       return;
     }
-    const { innerText }: WithInnerText = this.#currentNode;
+    const { innerText }: WithInnerTextTrait = this.#currentNode;
 
     if (this.#currentElement instanceof Text) {
       this.#currentElement.nodeValue = innerText;
@@ -96,7 +96,7 @@ export class HierarchyBuilder {
   }
 
   #unwrapChildren(): void {
-    const childrenToUnwrapWithParentRef: WithParent<Node.Any>[] =
+    const childrenToUnwrapWithParentRef: WithParentTrait<Node.Any>[] =
       this.#currentElement instanceof HTMLElement
         ? HierarchyBuilder.#getChildrenWithParent(this.#currentNode, this.#currentElement)
         : [];
@@ -114,7 +114,7 @@ export class HierarchyBuilder {
     if (this.nextNode === undefined) {
       return;
     }
-    const nextNode: WithParent<Node.Any> = this.nextNode;
+    const nextNode: WithParentTrait<Node.Any> = this.nextNode;
     this.#currentNode = nextNode;
 
     if (isWithTag(nextNode)) {

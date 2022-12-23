@@ -1,0 +1,72 @@
+name: NPM Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    name: Prepare node_modules
+    steps:
+      - name: checkout a branch
+        uses: actions/checkout@v3
+      - name: set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: 'npm'
+      - name: install dependencies
+        run: npm ci
+      - name: cache configured workspace for dependant jobs
+        run: tar --totals --create --file workspace.tar ./
+      - name: share prepared workspace with other jobs
+        uses: actions/upload-artifact@v3
+        with:
+          name: workspace
+          path: workspace.tar
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - name: download prepared workspace
+        uses: actions/download-artifact@v3
+        with:
+          name: workspace
+      - name: restore workspace from archive
+        run: tar --totals --extract --file workspace.tar && rm --force workspace.tar
+      - name: generate bundle
+        run: npm run build
+      - name: cache bundle for publishing
+        run: tar --totals --create --file bundle.tar ./dist/
+      - name: share prepared workspace with other jobs
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundle
+          path: bundle.tar
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Publish bundle to NPM as package
+    steps:
+      - name: download prepared bundle
+        uses: actions/download-artifact@v3
+        with:
+          name: bundle
+      - name: restore workspace from archive
+        run: tar --totals --extract --file bundle.tar && rm --force bundle.tar
+      - name: 'Authorize to NPM Registry'
+        run: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Update package version'
+        run: |
+          cd ./dist
+          npm version "${{ github.event.release.tag_name }}"
+          cd ..
+      - name: 'Publish bundle to NPM'
+        run: npm publish ./dist

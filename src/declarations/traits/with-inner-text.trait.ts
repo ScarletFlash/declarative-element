@@ -1,1 +1,1 @@
-export type WithInnerText<T = unknown> = T & { innerText: string };
+export type WithInnerTextTrait<T = unknown> = T & { innerText: string };

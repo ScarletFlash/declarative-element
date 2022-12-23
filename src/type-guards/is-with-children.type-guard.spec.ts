@@ -1,4 +1,4 @@
-import type { WithChildren } from './../declarations/traits/with-children.trait';
+import type { WithChildrenTrait } from './../declarations/traits/with-children.trait';
 import { isWithChildren } from './is-with-children.type-guard';
 
 describe('is-with-children.type-guard.ts', () => {
@@ -7,7 +7,7 @@ describe('is-with-children.type-guard.ts', () => {
   });
 
   it('should return true if called with object compatible with { children: Node.Any[] }', () => {
-    const compatibleObject: WithChildren = {
+    const compatibleObject: WithChildrenTrait = {
       children: [],
     };
 
@@ -15,7 +15,7 @@ describe('is-with-children.type-guard.ts', () => {
   });
 
   it('should return false if called with object incompatible with { children: Node.Any[] }', () => {
-    const incompatibleObject: Record<keyof WithChildren, VoidFunction> = {
+    const incompatibleObject: Record<keyof WithChildrenTrait, VoidFunction> = {
       children: () => void 0,
     };
 

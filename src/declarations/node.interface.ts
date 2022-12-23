@@ -1,14 +1,14 @@
-import type { WithAttributes } from './traits/with-attributes.trait';
-import type { WithChildren as WithChildrenTrait } from './traits/with-children.trait';
-import type { WithInnerText } from './traits/with-inner-text.trait';
-import type { WithTagName } from './traits/with-tag-name.trait';
+import type { WithAttributesTrait } from './traits/with-attributes.trait';
+import type { WithChildrenTrait } from './traits/with-children.trait';
+import type { WithInnerTextTrait } from './traits/with-inner-text.trait';
+import type { WithTagNameTrait } from './traits/with-tag-name.trait';
 
 export namespace Node {
-  export interface WithTag extends WithTagName, Partial<WithAttributes> {}
+  export interface WithTag extends WithTagNameTrait, Partial<WithAttributesTrait> {}
 
   export interface WithChildren extends WithTag, WithChildrenTrait {}
 
-  export type Text = WithInnerText;
+  export type Text = WithInnerTextTrait;
 
   export interface TextWithTag extends WithTag, Text {}
 

@@ -1,1 +1,1 @@
-export type WithTagName<T = unknown> = T & { tagName: string };
+export type WithTagNameTrait<T = unknown> = T & { tagName: string };

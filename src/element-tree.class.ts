@@ -1,5 +1,5 @@
 import type { Node } from './declarations/node.interface';
-import type { WithInnerText } from './declarations/traits/with-inner-text.trait';
+import type { WithInnerTextTrait } from './declarations/traits/with-inner-text.trait';
 import { HierarchyBuilder } from './hierarchy-builder.class';
 import { isWithAttributes } from './type-guards/is-with-attributes.type-guard';
 import { isWithChildren } from './type-guards/is-with-children.type-guard';
@@ -25,7 +25,7 @@ export class ElementTree {
     throw new Error('Unsupported root node type');
   }
 
-  static #getTextNode(node: WithInnerText<Node.Any>): HTMLElement | Text {
+  static #getTextNode(node: WithInnerTextTrait<Node.Any>): HTMLElement | Text {
     const innerText: string = node.innerText;
 
     if (isWithTag(node)) {
