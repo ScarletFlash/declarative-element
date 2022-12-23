@@ -1,0 +1,100 @@
+name: Integration
+on:
+  - push
+
+jobs:
+  install:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout a branch
+        uses: actions/checkout@v3
+      - name: set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: 'npm'
+      - name: install dependencies
+        run: npm ci
+      - name: cache configured workspace for dependant jobs
+        run: tar --totals --create --file workspace.tar ./
+      - name: share prepared workspace with other jobs
+        uses: actions/upload-artifact@v3
+        with:
+          name: workspace
+          path: workspace.tar
+
+  check_formatting:
+    name: Check formatting
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - name: download prepared workspace
+        uses: actions/download-artifact@v3
+        with:
+          name: workspace
+      - name: restore workspace from archive
+        run: tar --totals --extract --file workspace.tar && rm --force workspace.tar
+      - name: run formatting checks
+        run: npm run formatter:check
+
+  check_linting:
+    name: Check linting
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - name: download prepared workspace
+        uses: actions/download-artifact@v3
+        with:
+          name: workspace
+      - name: restore workspace from archive
+        run: tar --totals --extract --file workspace.tar && rm --force workspace.tar
+      - name: run linting checks
+        run: npm run linter:check
+
+  check_compilation:
+    name: Check compilation
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - name: download prepared workspace
+        uses: actions/download-artifact@v3
+        with:
+          name: workspace
+      - name: restore workspace from archive
+        run: tar --totals --extract --file workspace.tar && rm --force workspace.tar
+      - name: run compilation checks
+        run: npm run compiler:check
+
+  check_spelling:
+    name: Check spelling
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - name: download prepared workspace
+        uses: actions/download-artifact@v3
+        with:
+          name: workspace
+      - name: restore workspace from archive
+        run: tar --totals --extract --file workspace.tar && rm --force workspace.tar
+      - name: run spelling checks
+        run: npm run spell:check
+
+  test_unit:
+    name: Run unit-tests
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - name: download prepared workspace
+        uses: actions/download-artifact@v3
+        with:
+          name: workspace
+      - name: restore workspace from archive
+        run: tar --totals --extract --file workspace.tar && rm --force workspace.tar
+      - name: run unit tests
+        run: npm run test:ci
