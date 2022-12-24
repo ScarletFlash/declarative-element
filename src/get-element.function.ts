@@ -1,4 +1,4 @@
-import type { Node } from './declarations/node.interface';
+import type { Node } from './declarations/interfaces/node.interface';
 import type { WithInnerTextTrait } from './declarations/traits/with-inner-text.trait';
 import { isWithChildren } from './type-guards/is-with-children.type-guard';
 import { isWithInnerText } from './type-guards/is-with-inner-text.type-guard';
@@ -29,12 +29,12 @@ const getTextNode = (node: WithInnerTextTrait<Node.Any>): HTMLElement | Text => 
   const element: HTMLElement | Text = isWithTag(node)
     ? document.createElement(node.tagName)
     : document.createTextNode('');
-  insertTextIfPresent(element, node);
+  insertTextIfPresent({ element, node });
   return element;
 };
 
 const getTaggedNodeWithoutChildren = (node: Node.WithTag): HTMLElement => {
   const element: HTMLElement = document.createElement(node.tagName);
-  applyAttributesIfPresent(element, node);
+  applyAttributesIfPresent({ element, node });
   return element;
 };

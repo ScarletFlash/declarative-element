@@ -1,8 +1,9 @@
-import type { Node } from '../declarations/node.interface';
+import type { NodeWithElement } from '../declarations/interfaces/node-with-element.interface';
+import { isHtmlElement } from '../type-guards/is-html-element.type-guard';
 import { isWithAttributes } from '../type-guards/is-with-attributes.type-guard';
 
-export const applyAttributesIfPresent = (element: HTMLElement | Text, node: Node.Any): void => {
-  if (!(element instanceof HTMLElement)) {
+export const applyAttributesIfPresent = ({ element, node }: NodeWithElement): void => {
+  if (!isHtmlElement(element)) {
     return;
   }
 

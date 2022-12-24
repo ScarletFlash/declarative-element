@@ -1,4 +1,4 @@
-import type { Node } from '../declarations/node.interface';
+import type { Node } from '../declarations/interfaces/node.interface';
 import { applyAttributesIfPresent } from './apply-attributes-if-present.utility';
 
 describe('apply-attributes-if-present.ts', () => {
@@ -12,7 +12,7 @@ describe('apply-attributes-if-present.ts', () => {
     };
 
     expect(element.attributes).toHaveLength(0);
-    applyAttributesIfPresent(element, node);
+    applyAttributesIfPresent({ element, node });
     expect(element.attributes).toHaveLength(1);
     expect(element.getAttribute('key')).toBe('value');
   });
@@ -24,7 +24,7 @@ describe('apply-attributes-if-present.ts', () => {
     };
 
     expect(element.attributes).toHaveLength(0);
-    applyAttributesIfPresent(element, node);
+    applyAttributesIfPresent({ element, node });
     expect(element.attributes).toHaveLength(0);
   });
 
@@ -38,7 +38,7 @@ describe('apply-attributes-if-present.ts', () => {
     };
 
     const initialValue: string | null = element.nodeValue;
-    applyAttributesIfPresent(element, node);
+    applyAttributesIfPresent({ element, node });
     const resultValue: string | null = element.nodeValue;
 
     expect(initialValue).toBe(resultValue);

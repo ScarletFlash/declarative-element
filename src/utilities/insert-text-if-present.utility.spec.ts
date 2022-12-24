@@ -1,4 +1,4 @@
-import type { Node } from '../declarations/node.interface';
+import type { Node } from '../declarations/interfaces/node.interface';
 import { insertTextIfPresent } from './insert-text-if-present.utility';
 
 describe('insert-text-if-present.ts', () => {
@@ -9,7 +9,7 @@ describe('insert-text-if-present.ts', () => {
     };
 
     const initialHtml: string = element.outerHTML;
-    insertTextIfPresent(element, node);
+    insertTextIfPresent({ element, node });
     const resultHtml: string = element.outerHTML;
 
     expect(initialHtml).toBe(resultHtml);
@@ -22,7 +22,7 @@ describe('insert-text-if-present.ts', () => {
     };
 
     const initialValue: string | null = element.nodeValue;
-    insertTextIfPresent(element, node);
+    insertTextIfPresent({ element, node });
     const resultValue: string | null = element.nodeValue;
 
     expect(initialValue).toBe('123');
@@ -37,7 +37,7 @@ describe('insert-text-if-present.ts', () => {
     };
 
     const initialValue: string = element.innerHTML;
-    insertTextIfPresent(element, node);
+    insertTextIfPresent({ element, node });
     const resultValue: string = element.innerHTML;
 
     expect(initialValue).toBe('');

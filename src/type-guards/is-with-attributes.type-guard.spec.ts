@@ -1,4 +1,4 @@
-import type { WithAttributesTrait } from './../declarations/traits/with-attributes.trait';
+import type { WithAttributesTrait } from '../declarations/traits/with-attributes.trait';
 import { isWithAttributes } from './is-with-attributes.type-guard';
 
 describe('is-with-attributes.type-guard.ts', () => {

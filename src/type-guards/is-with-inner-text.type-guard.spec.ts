@@ -1,4 +1,4 @@
-import type { WithInnerTextTrait } from './../declarations/traits/with-inner-text.trait';
+import type { WithInnerTextTrait } from '../declarations/traits/with-inner-text.trait';
 import { isWithInnerText } from './is-with-inner-text.type-guard';
 
 describe('is-with-inner-text.type-guard.ts', () => {

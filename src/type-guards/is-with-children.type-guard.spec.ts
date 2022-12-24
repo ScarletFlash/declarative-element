@@ -1,4 +1,4 @@
-import type { WithChildrenTrait } from './../declarations/traits/with-children.trait';
+import type { WithChildrenTrait } from '../declarations/traits/with-children.trait';
 import { isWithChildren } from './is-with-children.type-guard';
 
 describe('is-with-children.type-guard.ts', () => {

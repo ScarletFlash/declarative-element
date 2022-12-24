@@ -1,4 +1,4 @@
-import type { Node } from '../declarations/node.interface';
+import type { Node } from '../declarations/interfaces/node.interface';
 import { getHierarchy } from './get-hierarchy.utility';
 
 describe('hierarchy-builder.class.ts', () => {

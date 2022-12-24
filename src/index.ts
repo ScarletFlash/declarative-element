@@ -1,2 +1,2 @@
 export { getElement } from './get-element.function';
-export { Node } from './declarations/node.interface';
+export { Node } from './declarations/interfaces/node.interface';

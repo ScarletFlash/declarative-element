@@ -1,4 +1,4 @@
-import type { WithTagNameTrait } from './../declarations/traits/with-tag-name.trait';
+import type { WithTagNameTrait } from '../declarations/traits/with-tag-name.trait';
 import { isWithTag } from './is-with-tag.type-guard';
 
 describe('is-with-tag.type-guard.ts', () => {

@@ -1,4 +1,4 @@
-import type { Node } from './declarations/node.interface';
+import type { Node } from './declarations/interfaces/node.interface';
 import { getElement } from './get-element.function';
 
 describe('declarative-element.class.ts', () => {
@@ -8,7 +8,7 @@ describe('declarative-element.class.ts', () => {
         innerText: 'node without any tag',
       };
 
-      const resultDomEntry: HTMLElement | Text = getElement(rootNode);
+      const resultDomEntry: Text = getElement(rootNode);
       expect(resultDomEntry).toBeInstanceOf(Text);
       expect(resultDomEntry.data).toBe(rootNode.innerText);
     });
