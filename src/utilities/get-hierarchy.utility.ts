@@ -6,32 +6,42 @@ import { isWithTag } from '../type-guards/is-with-tag.type-guard';
 import { applyAttributesIfPresent } from './apply-attributes-if-present.utility';
 import { insertTextIfPresent } from './insert-text-if-present.utility';
 
-let rootElement: HTMLElement;
-let currentNode: WithParentTrait<Node.Any>;
-let currentElement: HTMLElement | Text;
-let unprocessedNodes: WithParentTrait<Node.Any>[];
+interface CurrentIterationArguments {
+  currentNode: WithParentTrait<Node.Any>;
+  currentElement: HTMLElement | Text;
+}
+
+interface IterationContext extends CurrentIterationArguments {
+  readonly rootElement: HTMLElement;
+  readonly unprocessedNodes: WithParentTrait<Node.Any>[];
+}
 
 export const getHierarchy = (rootNode: Node.WithChildren): HTMLElement => {
-  rootElement = document.createElement(rootNode.tagName);
-  currentNode = getNodeWithParent(rootNode, null);
-  currentElement = rootElement;
-  unprocessedNodes = [currentNode];
+  const rootElement: HTMLElement = document.createElement(rootNode.tagName);
+  const rootNodeWithParent: WithParentTrait<Node.Any> = getNodeWithParent(rootNode, null);
+  const context: IterationContext = {
+    rootElement,
+    currentNode: rootNodeWithParent,
+    currentElement: rootElement,
+    unprocessedNodes: [rootNodeWithParent],
+  };
 
   do {
-    applyAttributesIfPresent(currentElement, currentNode);
-    insertTextIfPresent(currentElement, currentNode);
+    applyAttributesIfPresent(context.currentElement, context.currentNode);
+    insertTextIfPresent(context.currentElement, context.currentNode);
 
-    unwrapChildren();
-    insertCurrentNodeIntoHierarchy();
-    setNextIterationArguments();
-  } while (unprocessedNodes.length !== 0);
+    unwrapChildren(context);
+    insertCurrentNodeIntoHierarchy(context);
+    setNextIterationArguments(context);
+  } while (context.unprocessedNodes.length !== 0);
 
   return rootElement;
 };
 
-const getNextNode = (): WithParentTrait<Node.Any> | undefined => unprocessedNodes[0];
-
-const getCurrentElementChildrenWithParentRef = (): WithParentTrait<Node.Any>[] => {
+const getCurrentElementChildrenWithParentRef = ({
+  currentElement,
+  currentNode,
+}: CurrentIterationArguments): WithParentTrait<Node.Any>[] => {
   if (currentElement instanceof HTMLElement) {
     return getChildrenWithParent(currentNode, currentElement);
   }
@@ -59,30 +69,30 @@ const getChildrenWithParent = (node: WithParentTrait<Node.Any>, element: HTMLEle
   return node.children.map((child: Node.Any): WithParentTrait<Node.Any> => getNodeWithParent(child, element));
 };
 
-const unwrapChildren = (): void => {
-  unprocessedNodes.splice(0, 1, ...getCurrentElementChildrenWithParentRef());
+const unwrapChildren = (context: IterationContext): void => {
+  context.unprocessedNodes.splice(0, 1, ...getCurrentElementChildrenWithParentRef(context));
 };
 
-const insertCurrentNodeIntoHierarchy = (): void => {
+const insertCurrentNodeIntoHierarchy = ({ currentElement, currentNode }: CurrentIterationArguments): void => {
   if (currentNode.parent === null) {
     return;
   }
   currentNode.parent.appendChild(currentElement);
 };
 
-const setNextIterationArguments = (): void => {
-  const nextNode: WithParentTrait<Node.Any> | undefined = getNextNode();
+const setNextIterationArguments = (context: IterationContext): void => {
+  const nextNode: WithParentTrait<Node.Any> | undefined = context.unprocessedNodes[0];
   if (nextNode === undefined) {
     return;
   }
-  currentNode = nextNode;
+  context.currentNode = nextNode;
 
   if (isWithTag(nextNode)) {
-    currentElement = document.createElement(nextNode.tagName);
+    context.currentElement = document.createElement(nextNode.tagName);
     return;
   }
 
   if (isWithInnerText(nextNode)) {
-    currentElement = document.createTextNode(nextNode.innerText);
+    context.currentElement = document.createTextNode(nextNode.innerText);
   }
 };
