@@ -2,6 +2,7 @@ import type { IterationContext } from '../declarations/interfaces/iteration-cont
 import type { Node } from '../declarations/interfaces/node.interface';
 import type { WithParentTrait } from '../declarations/traits/with-parent.trait';
 import { applyAttributesIfPresent } from './apply-attributes-if-present.utility';
+import { getEmptyElementByNode } from './get-empty-element-by-node.utility';
 import { getNodeWithParent } from './get-node-with-parent.utility';
 import { insertCurrentNodeIntoHierarchy } from './insert-current-node-into-hierarchy.utility';
 import { insertTextIfPresent } from './insert-text-if-present.utility';
@@ -9,7 +10,7 @@ import { setNextIterationArguments } from './set-next-iteration-arguments.utilit
 import { unwrapChildren } from './unwrap-children.utility';
 
 export const getHierarchy = (rootNode: Node.WithChildren): HTMLElement => {
-  const rootElement: HTMLElement = document.createElement(rootNode.tagName);
+  const rootElement: HTMLElement = getEmptyElementByNode(rootNode);
   const rootNodeWithParent: WithParentTrait<Node.Any> = getNodeWithParent(rootNode, null);
   const unprocessedNodes: WithParentTrait<Node.Any>[] = [rootNodeWithParent];
   const context: IterationContext = {

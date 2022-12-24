@@ -19,6 +19,14 @@ const jestConfig: JestConfigWithTsJest = {
   testRegex: '\\/src\\/.*\\.spec\\.ts$',
   collectCoverageFrom: ['src/**/*.ts'],
   collectCoverage: true,
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
 };
 
 module.exports = jestConfig;
