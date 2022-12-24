@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "noEmit": false,
+    "lib": ["ESNext"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true
+  },
+  "include": ["src"]
+}

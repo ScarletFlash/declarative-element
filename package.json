@@ -58,8 +58,8 @@
     "build": "npm run bundler:prod",
     "test": "npm run test:dev",
     "📦": "Bundler",
-    "bundler:prod": "ts-node --project ./tsconfig.build.json --esm ./do-build.ts --production",
-    "bundler:dev": "ts-node --project ./tsconfig.build.json --esm ./do-build.ts",
+    "bundler:prod": "npm run bundler:prod --workspace=scripts",
+    "bundler:dev": "npm run bundler:dev --workspace=scripts",
     "🧪": "Test runner",
     "test:dev": "npm run test:dev --workspaces",
     "test:ci": "npm run test:ci --workspaces"
