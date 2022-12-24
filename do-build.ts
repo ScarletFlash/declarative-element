@@ -9,12 +9,12 @@ const commandLineArguments: Set<string> = new Set<string>(argv);
 
 namespace Path {
   export const dist: string = join(__dirname, 'dist');
-  export const entryPoint: string = join(__dirname, 'src', 'index.ts');
+  export const entryPoint: string = join(__dirname, 'projects', 'library', 'src', 'index.ts');
   export const typings: string = join(dist, 'index.d.ts');
   export const main: string = join(dist, 'index.js');
 
   export namespace TSConfig {
-    export const library: string = join(__dirname, 'tsconfig.lib.json');
+    export const library: string = join(__dirname, 'projects', 'library', 'tsconfig.lib.json');
   }
 
   export namespace ReadMe {

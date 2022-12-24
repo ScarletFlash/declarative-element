@@ -1,0 +1,10 @@
+---
+$schema: https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/eslintrc.json
+extends:
+  - ../../.eslintrc.yaml
+overrides:
+  - files:
+      - '*.ts'
+    parserOptions:
+      project:
+        - ../../tsconfig.linter.json

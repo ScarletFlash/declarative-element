@@ -53,27 +53,16 @@
   },
   "scripts": {
     "🪄": "One-liners",
-    "autofix": "npm run formatter:fix && npm run linter:fix",
-    "lint": "npm run formatter:check && npm run linter:check && npm run compiler:check",
+    "autofix": "npm run formatter:fix --workspaces && npm run linter:fix --workspaces",
+    "lint": "npm run formatter:check --workspaces && npm run linter:check --workspaces && npm run compiler:check --workspaces && npm run spell:check --workspaces",
     "build": "npm run bundler:prod",
     "test": "npm run test:dev",
-    "🔬": "Compiler",
-    "compiler:run": "tsc --project tsconfig.json",
-    "compiler:check": "tsc --project tsconfig.json --noEmit",
     "📦": "Bundler",
     "bundler:prod": "ts-node --project ./tsconfig.build.json --esm ./do-build.ts --production",
     "bundler:dev": "ts-node --project ./tsconfig.build.json --esm ./do-build.ts",
     "🧪": "Test runner",
-    "test:dev": "jest --clearCache && jest --config=jest.config.ts --coverage --detectOpenHandles",
-    "test:ci": "jest --config=jest.config.ts --coverage --ci",
-    "🖼️": "Code style",
-    "formatter:check": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --check ./**/*.{ts,js,html,scss,yaml,yml,json}",
-    "formatter:fix": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --write ./**/*.{ts,js,html,scss,yaml,yml,json}",
-    "🎙️": "Spelling",
-    "spell:check": "cspell '**/*' --config cspell.config.yaml",
-    "☠️": "Code quality",
-    "linter:check": "eslint --config ./.eslintrc.yaml src",
-    "linter:fix": "eslint --config ./.eslintrc.yaml --fix src"
+    "test:dev": "npm run test:dev --workspaces",
+    "test:ci": "npm run test:ci --workspaces"
   },
   "devDependencies": {
     "@npm/types": "latest",
@@ -102,5 +91,8 @@
     "ts-jest": "latest",
     "ts-node": "latest",
     "typescript": "latest"
-  }
+  },
+  "workspaces": [
+    "projects/*"
+  ]
 }

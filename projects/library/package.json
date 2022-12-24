@@ -1,0 +1,34 @@
+{
+  "name": "library",
+  "private": true,
+  "version": "local",
+  "scripts": {
+    "🔬": "Compiler",
+    "compiler:run": "tsc --project tsconfig.lib.json",
+    "compiler:check": "tsc --project tsconfig.lib.json --noEmit",
+    "☠️": "Code quality",
+    "linter:fix": "eslint --config .eslintrc.yaml --fix src",
+    "linter:check": "eslint --config .eslintrc.yaml src",
+    "🖼️": "Code style",
+    "formatter:check": "prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --check ./**/*.{ts,js,html,scss,yaml,yml,json}",
+    "formatter:fix": "prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --write ./**/*.{ts,js,html,scss,yaml,yml,json}",
+    "🎙️": "Spelling",
+    "spell:check": "cspell '**/*' --config ../../cspell.config.yaml",
+    "🧪": "Test runner",
+    "test:dev": "jest --clearCache && jest --config=jest.config.ts --coverage --detectOpenHandles",
+    "test:ci": "jest --config=jest.config.ts --coverage --ci"
+  },
+  "devDependencies": {
+    "@types/jest": "*",
+    "cspell": "*",
+    "dts-bundle-generator": "*",
+    "esbuild": "*",
+    "eslint": "*",
+    "jest": "*",
+    "jest-environment-jsdom": "*",
+    "prettier": "*",
+    "ts-jest": "*",
+    "ts-node": "*",
+    "typescript": "*"
+  }
+}

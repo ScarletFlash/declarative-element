@@ -3,7 +3,7 @@
 <div align="center">
 
 <a href="https://github.com/ScarletFlash/declarative-element/actions/workflows/on-push.yaml">![CI](https://github.com/ScarletFlash/declarative-element/actions/workflows/on-push.yaml/badge.svg)</a>
-<a href="https://github.com/ScarletFlash/declarative-element/blob/main/jest.config.ts#L22">![Code Coverage](https://img.shields.io/badge/code--coverage-100%25-green)</a>
+<a href="https://github.com/ScarletFlash/declarative-element/blob/main/projects/library/jest.config.ts#L22">![Code Coverage](https://img.shields.io/badge/code--coverage-100%25-green)</a>
 <a href="https://github.com/ScarletFlash/declarative-element/search?l=typescript">![Type Definitions](https://img.shields.io/npm/types/declarative-element)</a>
 <a href="https://github.com/ScarletFlash/declarative-element/blob/main/LICENSE.md">![NPM License](https://img.shields.io/npm/l/declarative-element)</a>
 
