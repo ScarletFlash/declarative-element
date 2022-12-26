@@ -24,6 +24,21 @@ jobs:
           name: workspace
           path: workspace.tar
 
+  scan_dependencies:
+    name: Scan dependencies
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - name: download prepared workspace
+        uses: actions/download-artifact@v3
+        with:
+          name: workspace
+      - name: restore workspace from archive
+        run: tar --totals --extract --file workspace.tar && rm --force workspace.tar
+      - name: run vulnurability checks
+        uses: actions/dependency-review-action@v2
+
   check_formatting:
     name: Check formatting
     runs-on: ubuntu-latest
