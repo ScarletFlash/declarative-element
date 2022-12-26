@@ -65,8 +65,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: 'Update package version'
         run: |
-          cd ./dist
+          cd ./dist/library
           npm version "${{ github.event.release.tag_name }}"
-          cd ..
+          cd ../..
       - name: 'Publish bundle to NPM'
         run: npm publish ./dist/library/
