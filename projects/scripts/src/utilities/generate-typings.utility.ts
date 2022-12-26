@@ -4,7 +4,7 @@ import { Path } from '../declarations/path.const';
 
 export async function generateTypings(): Promise<void> {
   const config: EntryPointConfig = {
-    filePath: Path.Source.libraryEntryPoint,
+    filePath: Path.Source.Library.libraryEntryPoint,
     output: {
       exportReferencedTypes: false,
       noBanner: true,
@@ -13,10 +13,10 @@ export async function generateTypings(): Promise<void> {
     },
   };
   const content: string[] = generateDtsBundle([config], {
-    preferredConfigPath: Path.Source.tsConfig,
+    preferredConfigPath: Path.Source.Library.tsConfig,
   });
 
-  return writeFile(Path.Dist.typings, content.join('\n'), {
+  return writeFile(Path.Dist.Library.typings, content.join('\n'), {
     encoding: 'utf-8',
   });
 }

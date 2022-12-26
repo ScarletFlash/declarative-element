@@ -7,13 +7,13 @@ import { generateTypings } from './utilities/generate-typings.utility';
 
 Promise.resolve()
   .then(() =>
-    rm(Path.Dist.directory, {
+    rm(Path.Dist.Library.directory, {
       force: true,
       recursive: true,
     })
   )
   .then(() => generateBundle())
-  .then(() => cp(Path.Source.license, Path.Dist.license))
+  .then(() => cp(Path.Source.Library.license, Path.Dist.Library.license))
   .then(() => generateReadMe())
   .then(() => generateTypings())
   .then(() => generatePackageJson());

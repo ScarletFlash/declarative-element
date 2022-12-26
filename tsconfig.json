@@ -1,7 +1,13 @@
 {
   "references": [
     {
+      "path": "projects/demo/tsconfig.json"
+    },
+    {
       "path": "projects/library/tsconfig.json"
+    },
+    {
+      "path": "tsconfig.linter.json"
     }
   ]
 }

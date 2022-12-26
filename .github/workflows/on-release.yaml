@@ -69,4 +69,4 @@ jobs:
           npm version "${{ github.event.release.tag_name }}"
           cd ..
       - name: 'Publish bundle to NPM'
-        run: npm publish ./dist
+        run: npm publish ./dist/library/
