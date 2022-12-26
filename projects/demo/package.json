@@ -19,7 +19,7 @@
     "test:ci": "jest --config=jest.config.ts --coverage --ci"
   },
   "dependencies": {
-    "declarative-element": "file:./../../dist",
+    "library": "*",
     "monaco-editor": "*",
     "prettier": "*"
   },
