@@ -5,10 +5,11 @@ import { Path } from '../declarations/path.const';
 export async function generateTypings(): Promise<void> {
   const config: EntryPointConfig = {
     filePath: Path.Source.libraryEntryPoint,
-
     output: {
       exportReferencedTypes: false,
       noBanner: true,
+      inlineDeclareExternals: true,
+      inlineDeclareGlobals: true,
     },
   };
   const content: string[] = generateDtsBundle([config], {

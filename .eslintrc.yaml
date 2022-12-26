@@ -11,6 +11,9 @@ env:
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/recommended
+settings:
+  jsdoc:
+    mode: 'typescript'
 overrides:
   - files:
       - '*.ts'
@@ -86,7 +89,7 @@ overrides:
       '@typescript-eslint/no-namespace': off
       '@typescript-eslint/dot-notation': error
       '@typescript-eslint/no-dynamic-delete': error
-      '@typescript-eslint/unified-signatures': error
+      '@typescript-eslint/unified-signatures': off
       '@typescript-eslint/semi':
         - error
         - always
@@ -149,7 +152,57 @@ overrides:
           custom:
             regex: '^I[A-Z]'
             match: false
-      jsdoc/no-types: error
+      'jsdoc/check-access': off
+      'jsdoc/check-alignment': error
+      'jsdoc/check-examples': off
+      'jsdoc/check-indentation': error
+      'jsdoc/check-line-alignment': error
+      'jsdoc/check-param-names': error
+      'jsdoc/check-property-names': error
+      'jsdoc/check-syntax': error
+      'jsdoc/check-tag-names': error
+      'jsdoc/check-types': error
+      'jsdoc/check-values': error
+      'jsdoc/empty-tags': error
+      'jsdoc/implements-on-classes': error
+      'jsdoc/match-description': error
+      'jsdoc/multiline-blocks': error
+      'jsdoc/newline-after-description': error
+      'jsdoc/no-bad-blocks': error
+      'jsdoc/no-defaults': error
+      'jsdoc/no-missing-syntax': off
+      'jsdoc/no-multi-asterisks': error
+      'jsdoc/no-restricted-syntax': off
+      'jsdoc/no-types': error
+      'jsdoc/no-undefined-types': error
+      'jsdoc/require-asterisk-prefix': error
+      'jsdoc/require-description': off
+      'jsdoc/require-description-complete-sentence': error
+      'jsdoc/require-example': off
+      'jsdoc/require-file-overview':
+        - error
+        - tags:
+            file:
+              mustExist: false
+      'jsdoc/require-hyphen-before-param-description': error
+      'jsdoc/require-jsdoc': error
+      'jsdoc/require-param': off
+      'jsdoc/require-param-description': off
+      'jsdoc/require-param-name': off
+      'jsdoc/require-param-type': off
+      'jsdoc/require-property': error
+      'jsdoc/require-property-description': error
+      'jsdoc/require-property-name': error
+      'jsdoc/require-property-type': error
+      'jsdoc/require-returns': off
+      'jsdoc/require-returns-check': off
+      'jsdoc/require-returns-description': off
+      'jsdoc/require-returns-type': off
+      'jsdoc/require-throws': off
+      'jsdoc/require-yields': error
+      'jsdoc/require-yields-check': error
+      'jsdoc/tag-lines': error
+      'jsdoc/valid-types': error
       complexity:
         - error
         - max: 30
