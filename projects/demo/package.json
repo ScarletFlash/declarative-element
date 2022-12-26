@@ -13,10 +13,7 @@
     "formatter:check": "prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --check ./**/*.{ts,js,html,scss,yaml,yml,json}",
     "formatter:fix": "prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --write ./**/*.{ts,js,html,scss,yaml,yml,json}",
     "🎙️": "Spelling",
-    "spell:check": "cspell '**/*' --config ../../cspell.config.yaml",
-    "🧪": "Test runner",
-    "test:dev": "jest --clearCache && jest --config=jest.config.ts --coverage --detectOpenHandles",
-    "test:ci": "jest --config=jest.config.ts --coverage --ci"
+    "spell:check": "cspell '**/*' --config ../../cspell.config.yaml"
   },
   "dependencies": {
     "library": "*",
