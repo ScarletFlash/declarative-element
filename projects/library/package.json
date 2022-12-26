@@ -28,5 +28,6 @@
     "ts-jest": "*",
     "ts-node": "*",
     "typescript": "*"
-  }
+  },
+  "exports": "./src/index.ts"
 }
