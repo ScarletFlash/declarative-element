@@ -7,7 +7,7 @@ export async function generateBundle(): Promise<unknown> {
 
   return build({
     bundle: true,
-    entryPoints: [Path.Source.libraryEntryPoint],
+    entryPoints: [Path.Source.Library.libraryEntryPoint],
     resolveExtensions: ['.ts'],
     platform: 'browser',
     format: 'esm',
@@ -15,11 +15,11 @@ export async function generateBundle(): Promise<unknown> {
     minify: commandLineArguments.has('--production'),
     target: 'esnext',
     treeShaking: true,
-    tsconfig: Path.Source.tsConfig,
+    tsconfig: Path.Source.Library.tsConfig,
     sourcemap: false,
     legalComments: 'none',
     splitting: true,
-    outdir: Path.Dist.directory,
+    outdir: Path.Dist.Library.directory,
     color: true,
     keepNames: false,
   });

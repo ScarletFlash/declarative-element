@@ -87,6 +87,7 @@
     "eslint-plugin-unused-imports": "latest",
     "jest": "latest",
     "jest-environment-jsdom": "latest",
+    "monaco-editor": "latest",
     "prettier": "latest",
     "ts-jest": "latest",
     "ts-node": "latest",

@@ -3,7 +3,7 @@ import { PackageJson as PackageJsonContent } from '@npm/types';
 import { Path } from '../declarations/path.const';
 
 export async function generatePackageJson(): Promise<void> {
-  const originalPackageJsonContent: string = await readFile(Path.Source.packageJsonFile, {
+  const originalPackageJsonContent: string = await readFile(Path.Source.Library.packageJsonFile, {
     encoding: 'utf-8',
   });
 
@@ -25,7 +25,7 @@ export async function generatePackageJson(): Promise<void> {
     ([key, _value]: [string, unknown]) => keysToByPass.has(key)
   );
 
-  return writeFile(Path.Dist.packageJsonFile, JSON.stringify(Object.fromEntries(filteredEntires)), {
+  return writeFile(Path.Dist.Library.packageJsonFile, JSON.stringify(Object.fromEntries(filteredEntires)), {
     encoding: 'utf-8',
   });
 }
