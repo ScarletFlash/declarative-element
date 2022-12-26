@@ -12,8 +12,8 @@
     "🎙️": "Spelling",
     "spell:check": "cspell '**/*' --config ../../cspell.config.yaml",
     "📦": "Bundler",
-    "bundler:prod": "ts-node --project ./tsconfig.build.json --esm ./src/build.script.ts --production",
-    "bundler:dev": "ts-node --project ./tsconfig.build.json --esm ./src/build.script.ts"
+    "bundler:prod": "ts-node --project ./tsconfig.build.json --esm ./src/build-all.script.ts --production",
+    "bundler:dev": "ts-node --project ./tsconfig.build.json --esm ./src/build-all.script.ts"
   },
   "devDependencies": {
     "@types/node": "*",
