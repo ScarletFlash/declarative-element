@@ -2,6 +2,8 @@
 $schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
 version: '0.2'
 language: en
+import:
+  - '@cspell/dict-lorem-ipsum/cspell-ext.json'
 ignorePaths:
   - node_modules
   - dist
@@ -20,6 +22,7 @@ dictionaries:
   - fonts
   - filetypes
   - npm
+  - lorem-ipsum
 words:
   - unnested
   - ESBuild

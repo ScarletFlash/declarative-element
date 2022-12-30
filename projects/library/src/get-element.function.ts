@@ -9,9 +9,9 @@ import { getHierarchy } from './utilities/get-hierarchy.utility';
 import { insertTextIfPresent } from './utilities/insert-text-if-present.utility';
 
 /**
- * @param node - HTMLElement.
+ * @param node - Node.TextWithTag
  *
- * ---.
+ * ---
  * @access public
  *
  * ---
@@ -34,14 +34,14 @@ import { insertTextIfPresent } from './utilities/insert-text-if-present.utility'
  * ```
  *
  * ---
- * @returns Returns HTMLElement.
+ * @returns Returns HTMLElement
  */
 export function getElement(node: Node.TextWithTag): HTMLElement;
 
 /**
- * @param node - Text node declaration.
+ * @param node - Node.Text
  *
- * ---.
+ * ---
  * @access public
  *
  * ---
@@ -61,14 +61,14 @@ export function getElement(node: Node.TextWithTag): HTMLElement;
  * ```
  *
  * ---
- * @returns Returns Text node.
+ * @returns Returns Text
  */
 export function getElement(node: Node.Text): Text;
 
 /**
- * @param node - HTMLElement.
+ * @param node - Node.WithChildren
  *
- * ---.
+ * ---
  * @access public
  *
  * ---
@@ -104,14 +104,14 @@ export function getElement(node: Node.Text): Text;
  * ```
  *
  * ---
- * @returns Returns HTMLElement.
+ * @returns Returns HTMLElement
  */
 export function getElement(node: Node.WithChildren): HTMLElement;
 
 /**
- * @param node - HTMLElement.
+ * @param node - Node.WithTag
  *
- * ---.
+ * ---
  * @access public
  *
  * ---
@@ -133,9 +133,21 @@ export function getElement(node: Node.WithChildren): HTMLElement;
  * ```
  *
  * ---
- * @returns Returns HTMLElement.
+ * @returns Returns HTMLElement
  */
 export function getElement(node: Node.WithTag): HTMLElement;
+
+/**
+ * @param node - Node.Any
+ *
+ * ---
+ * @access public
+ *
+ * ---
+ * @returns Returns HTMLElement or Text
+ */
+export function getElement(node: Node.Any): HTMLElement | Text;
+
 export function getElement(node: Node.Any): HTMLElement | Text {
   if (isWithInnerText(node)) {
     return getTextNode(node);
