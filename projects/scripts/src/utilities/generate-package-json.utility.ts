@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'fs/promises';
-import { PackageJson as PackageJsonContent } from '@npm/types';
+import type { PackageJson as PackageJsonContent } from '@npm/types';
 import { Path } from '../declarations/path.const';
 
 export async function generatePackageJson(): Promise<void> {
@@ -8,6 +8,13 @@ export async function generatePackageJson(): Promise<void> {
   });
 
   const originalContent: PackageJsonContent = JSON.parse(originalPackageJsonContent);
+
+  const extendedContent: PackageJsonContent = {
+    ...originalContent,
+    browser: './index.js',
+    main: './index.js',
+    types: './index.d.ts',
+  };
 
   const keysToByPass: Set<keyof PackageJsonContent | string> = new Set<keyof PackageJsonContent | string>([
     'name',
@@ -20,12 +27,16 @@ export async function generatePackageJson(): Promise<void> {
     'author',
     'dependencies',
     'keywords',
+    'browser',
+    'main',
+    'types',
   ]);
-  const filteredEntires: [string, unknown][] = Object.entries(originalContent).filter(
-    ([key, _value]: [string, unknown]) => keysToByPass.has(key)
-  );
+  const filteredEntires: [string, unknown][] = Object.entries(extendedContent)
+    .filter(([key, _value]: [string, unknown]) => keysToByPass.has(key))
+    .sort(([keyA]: [string, unknown], [keyB]: [string, unknown]) => (keyA > keyB ? 1 : -1));
 
-  return writeFile(Path.Dist.Library.packageJsonFile, JSON.stringify(Object.fromEntries(filteredEntires)), {
+  const resultEntries: Record<string, unknown> = Object.fromEntries(filteredEntires);
+  return writeFile(Path.Dist.Library.packageJsonFile, JSON.stringify(resultEntries), {
     encoding: 'utf-8',
   });
 }
