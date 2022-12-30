@@ -177,7 +177,7 @@ overrides:
       'jsdoc/no-undefined-types': error
       'jsdoc/require-asterisk-prefix': error
       'jsdoc/require-description': off
-      'jsdoc/require-description-complete-sentence': error
+      'jsdoc/require-description-complete-sentence': off
       'jsdoc/require-example': off
       'jsdoc/require-file-overview':
         - error
@@ -185,7 +185,7 @@ overrides:
             file:
               mustExist: false
       'jsdoc/require-hyphen-before-param-description': error
-      'jsdoc/require-jsdoc': error
+      'jsdoc/require-jsdoc': off
       'jsdoc/require-param': off
       'jsdoc/require-param-description': off
       'jsdoc/require-param-name': off

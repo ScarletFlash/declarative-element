@@ -86,7 +86,7 @@ export namespace Node {
 
   /**
    * @description
-   * Describes Node with unknown internal structure.
+   * Describes Node with unknown internal structure
    *
    * **Better use:**
    * - Node.WithTag

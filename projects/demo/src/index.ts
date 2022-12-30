@@ -1,5 +1,5 @@
-import { editor } from 'monaco-editor';
 import { getElement } from 'library';
+import { editor } from 'monaco-editor';
 
 const jsonEditorContainer: HTMLElement | null = document.querySelector('section.editor-json');
 if (jsonEditorContainer === null) {

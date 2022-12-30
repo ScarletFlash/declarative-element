@@ -65,6 +65,7 @@
     "test:ci": "npm run test:ci --workspaces"
   },
   "devDependencies": {
+    "@cspell/dict-lorem-ipsum": "latest",
     "@npm/types": "latest",
     "@types/jest": "latest",
     "@types/node": "latest",
